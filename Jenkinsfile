@@ -3,6 +3,7 @@
 pipeline{
 
     agent any
+    //agent { label 'Demo' }
 
     parameters{
 
@@ -107,16 +108,6 @@ pipeline{
                    dockerImageCleanup("${params.ImageName}","${params.ImageTag}","${params.DockerHubUser}")
                }
             }
-        } 
-        stage('JFrog Artifactory Publish'){
-            when { expression { params.action == 'create' } }
-            steps{
-                scripts{
-                    def artifactoryCredentialsId = 'artifactory-credentials'
-                    def mavenBuildInfo = publishToArtifactory(artifactoryCredentialsId)
-                }
-            
-            }
-        }
+        }      
     }
 }
